@@ -1,4 +1,4 @@
-package com.github.wkennedy.springkafkacloudevents;
+package com.github.wkennedy.springkafkacloudevents.converter;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;

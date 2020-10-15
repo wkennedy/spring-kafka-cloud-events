@@ -1,4 +1,4 @@
-package com.github.wkennedy.springkafkacloudevents;
+package com.github.wkennedy.springkafkacloudevents.factory;
 
 import io.cloudevents.core.format.EventFormat;
 import io.cloudevents.core.message.Encoding;
