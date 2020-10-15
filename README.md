@@ -68,3 +68,13 @@ This class will extract the JSON data payload from your CloudEvent and return a 
     Message<?> message = messageConverter.toMessage(consumerRecord, ack, mockConsumer, Person.class);
     Person payload = (Person) message.getPayload();
     String cloudEventId = new String((byte[])message.getHeaders().get("ce_id"));
+    
+#### Sources
+
+https://cloudevents.io/
+
+https://github.com/cloudevents
+
+https://github.com/cloudevents/spec/blob/master/kafka-protocol-binding.md
+
+https://github.com/spring-projects/spring-kafka
