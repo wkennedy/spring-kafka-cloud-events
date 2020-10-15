@@ -2,6 +2,7 @@ package com.github.wkennedy.springkafkacloudevents;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.wkennedy.springkafkacloudevents.converter.CloudEventJsonMessageConverter;
 import com.github.wkennedy.springkafkacloudevents.models.Person;
 import io.cloudevents.CloudEvent;
 import io.cloudevents.core.builder.CloudEventBuilder;

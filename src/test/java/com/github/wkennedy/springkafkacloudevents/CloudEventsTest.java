@@ -2,6 +2,8 @@ package com.github.wkennedy.springkafkacloudevents;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.wkennedy.springkafkacloudevents.factory.CloudEventKafkaConsumerFactory;
+import com.github.wkennedy.springkafkacloudevents.factory.CloudEventKafkaProducerFactory;
 import com.github.wkennedy.springkafkacloudevents.models.Person;
 import io.cloudevents.CloudEvent;
 import io.cloudevents.core.builder.CloudEventBuilder;

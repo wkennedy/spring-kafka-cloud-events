@@ -1,5 +1,6 @@
 package com.github.wkennedy.springkafkacloudevents;
 
+import com.github.wkennedy.springkafkacloudevents.converter.CloudEventJsonMessageConverter;
 import com.github.wkennedy.springkafkacloudevents.models.Person;
 import io.cloudevents.CloudEvent;
 import io.cloudevents.core.message.Encoding;
