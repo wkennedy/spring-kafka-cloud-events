@@ -11,11 +11,9 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.support.converter.ConversionException;
 import org.springframework.kafka.support.converter.Jackson2JavaTypeMapper;
 import org.springframework.kafka.support.converter.JsonMessageConverter;
-import org.springframework.kafka.support.converter.MessagingMessageConverter;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.Objects;
 
 public class CloudEventJsonMessageConverter extends JsonMessageConverter {
 
@@ -32,8 +30,11 @@ public class CloudEventJsonMessageConverter extends JsonMessageConverter {
 
     @Override
     protected Object extractAndConvertValue(ConsumerRecord<?, ?> record, Type type) {
-        //TODO this approach works well for binary encoding for cloud events, as the headers are mapped, but
-        //needs some more work for structured type
+        /*
+         * TODO
+         * this approach works well for binary encoding for cloud events, as the headers are mapped, but
+         * needs some more work for structured type
+         */
         CloudEvent cloudEvent = (CloudEvent) record.value();
         JavaType javaType = getTypeMapper().getTypePrecedence().equals(Jackson2JavaTypeMapper.TypePrecedence.INFERRED)
                 ? TypeFactory.defaultInstance().constructType(type)
