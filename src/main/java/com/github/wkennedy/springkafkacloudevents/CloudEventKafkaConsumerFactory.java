@@ -14,13 +14,19 @@ import static io.cloudevents.kafka.CloudEventSerializer.EVENT_FORMAT_CONFIG;
 
 public class CloudEventKafkaConsumerFactory {
 
-    @SuppressWarnings("unchecked")
     public static <K, V> DefaultKafkaConsumerFactory<K, V> consumerFactory(Map<String, Object> configs,
                                                                Deserializer<K> keySerializer,
                                                                Encoding encoding) {
+        return consumerFactory(configs, keySerializer, encoding, JsonFormat.CONTENT_TYPE);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <K, V> DefaultKafkaConsumerFactory<K, V> consumerFactory(Map<String, Object> configs,
+                                                                           Deserializer<K> keySerializer,
+                                                                           Encoding encoding, String eventFormat) {
         Map<String, Object> ceDeserializerConfigs = new HashMap<>();
         ceDeserializerConfigs.put(ENCODING_CONFIG, encoding);
-        ceDeserializerConfigs.put(EVENT_FORMAT_CONFIG, JsonFormat.CONTENT_TYPE);
+        ceDeserializerConfigs.put(EVENT_FORMAT_CONFIG, eventFormat);
 
         CloudEventDeserializer cloudEventDeserializer = new CloudEventDeserializer();
         cloudEventDeserializer.configure(ceDeserializerConfigs, false); //isKey always false

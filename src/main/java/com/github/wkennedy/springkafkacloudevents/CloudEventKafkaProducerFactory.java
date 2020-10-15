@@ -14,15 +14,22 @@ import static io.cloudevents.kafka.CloudEventSerializer.EVENT_FORMAT_CONFIG;
 
 public class CloudEventKafkaProducerFactory {
 
-    @SuppressWarnings("unchecked")
     public static <K, V> DefaultKafkaProducerFactory<K, V> cloudEventKafkaProducerFactory(Map<String, Object> configs,
                                                                    Serializer<K> keySerializer,
                                                                    Encoding encoding) {
+        return cloudEventKafkaProducerFactory(configs, keySerializer, encoding, JsonFormat.CONTENT_TYPE);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <K, V> DefaultKafkaProducerFactory<K, V> cloudEventKafkaProducerFactory(Map<String, Object> configs,
+                                                                                          Serializer<K> keySerializer,
+                                                                                          Encoding encoding,
+                                                                                          String eventFormat) {
         Map<String, Object> ceSerializerConfigs = new HashMap<>();
         ceSerializerConfigs.put(ENCODING_CONFIG, encoding);
-        ceSerializerConfigs.put(EVENT_FORMAT_CONFIG, JsonFormat.CONTENT_TYPE);
+        ceSerializerConfigs.put(EVENT_FORMAT_CONFIG, eventFormat);
         CloudEventSerializer cloudEventSerializer = new CloudEventSerializer();
-        cloudEventSerializer.configure(ceSerializerConfigs, false);//isKey always false
+        cloudEventSerializer.configure(ceSerializerConfigs, false); //isKey always false
 
         return new DefaultKafkaProducerFactory<>(configs, keySerializer, (Serializer<V>) cloudEventSerializer);
     }
