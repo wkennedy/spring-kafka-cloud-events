@@ -1,5 +1,7 @@
 # spring-kafka-cloud-events
 
+![Java CI with Maven](https://github.com/wkennedy/spring-kafka-cloud-events/workflows/Java%20CI%20with%20Maven/badge.svg)
+
 Cloud-Events Kafka Binding with Spring
 
 The spring-kafka-cloud-events library provides utility in order to use the CloudEvents spec in your project that uses Spring-Kafka. The CloudEvents specification describes event data in a common way and provides both a Java-SDK as well as a library for Kafka protocol binding.
