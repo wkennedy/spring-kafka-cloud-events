@@ -22,6 +22,8 @@ public class CloudEventsTest {
     protected static final String cloudEventID = UUID.randomUUID().toString();
     protected static final String cloudEventType = "example.kafka";
     protected static final URI cloudEventSource = URI.create("http://localhost");
+    protected static final String correlationId = UUID.randomUUID().toString();
+    protected static final String causationId = UUID.randomUUID().toString();
 
     protected final static Person person = new Person("John", "Doe");
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -32,6 +34,8 @@ public class CloudEventsTest {
                     .withId(cloudEventID)
                     .withType(cloudEventType)
                     .withSource(cloudEventSource)
+                    .withExtension("correlationId", correlationId)
+                    .withExtension("causationId", causationId)
                     .withData("application/json", objectMapper.writeValueAsBytes(data))
                     .build();
         } catch (JsonProcessingException e) {
@@ -39,12 +43,14 @@ public class CloudEventsTest {
         }
     }
 
-    protected static DefaultKafkaProducerFactory<String, CloudEvent> producerFactory(Encoding encoding, Map<String, Object> producerConfigs) {
+    protected static DefaultKafkaProducerFactory<String, CloudEvent> producerFactory(Encoding encoding,
+                                                                                     Map<String, Object> producerConfigs) {
         return CloudEventKafkaProducerFactory.cloudEventKafkaProducerFactory(producerConfigs,
                 new StringSerializer(), encoding);
     }
 
-    public static DefaultKafkaConsumerFactory<String, CloudEvent> consumerFactory(Encoding encoding, Map<String, Object> consumerConfigs) {
+    public static DefaultKafkaConsumerFactory<String, CloudEvent> consumerFactory(Encoding encoding,
+                                                                                  Map<String, Object> consumerConfigs) {
         return CloudEventKafkaConsumerFactory.consumerFactory(consumerConfigs, new StringDeserializer(), encoding);
     }
 

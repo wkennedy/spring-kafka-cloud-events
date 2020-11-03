@@ -21,6 +21,7 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
 import org.springframework.messaging.Message;
 
+import java.net.URI;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -74,11 +75,20 @@ public class StructuredCloudEventsTest extends CloudEventsTest {
         KafkaTemplate<String, CloudEvent> template = new KafkaTemplate<>(pf);
 
         template.send(TOPIC, getCloudEvent(person));
-        ConsumerRecord<String, CloudEvent> r2 = KafkaTestUtils.getSingleRecord(structuredConsumer, TOPIC);
+        ConsumerRecord<String, CloudEvent> consumerRecord = KafkaTestUtils.getSingleRecord(structuredConsumer, TOPIC);
         CloudEventJsonMessageConverter messageConverter = new CloudEventJsonMessageConverter();
         Acknowledgment ack = mock(Acknowledgment.class);
         Consumer<?, ?> mockConsumer = mock(Consumer.class);
-        Message<?> message = messageConverter.toMessage(r2, ack, mockConsumer, Person.class);
+
+        CloudEvent cloudEvent = consumerRecord.value();
+        assertThat(cloudEvent.getId()).isEqualTo(cloudEventID);
+        assertThat(cloudEvent.getType()).isEqualTo(cloudEventType);
+        assertThat(cloudEvent.getSource()).isEqualTo(cloudEventSource);
+        assertThat(cloudEvent.getExtension("correlationId")).isEqualTo(correlationId);
+        assertThat(cloudEvent.getExtension("causationId")).isEqualTo(causationId);
+
+        //Test message converter for structured content type
+        Message<?> message = messageConverter.toMessage(consumerRecord, ack, mockConsumer, Person.class);
         Person payload = (Person) message.getPayload();
         assertThat(payload).isEqualTo(person);
 
