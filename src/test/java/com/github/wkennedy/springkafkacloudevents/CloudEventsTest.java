@@ -41,8 +41,8 @@ public class CloudEventsTest {
                 .withId(cloudEventID)
                 .withType(cloudEventType)
                 .withSource(cloudEventSource)
-                .withExtension("correlationId", correlationId)
-                .withExtension("causationId", causationId)
+                .withExtension("correlationid", correlationId)
+                .withExtension("causationid", causationId)
                 .withData("application/json", cloudEventData)
                 .build();
     }
