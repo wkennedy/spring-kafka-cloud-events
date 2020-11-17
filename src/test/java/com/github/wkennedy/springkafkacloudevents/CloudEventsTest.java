@@ -6,7 +6,9 @@ import com.github.wkennedy.springkafkacloudevents.factory.CloudEventKafkaConsume
 import com.github.wkennedy.springkafkacloudevents.factory.CloudEventKafkaProducerFactory;
 import com.github.wkennedy.springkafkacloudevents.models.Person;
 import io.cloudevents.CloudEvent;
+import io.cloudevents.CloudEventData;
 import io.cloudevents.core.builder.CloudEventBuilder;
+import io.cloudevents.core.data.BytesCloudEventData;
 import io.cloudevents.core.message.Encoding;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -29,18 +31,20 @@ public class CloudEventsTest {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     protected CloudEvent getCloudEvent(Person data) {
+        CloudEventData cloudEventData;
         try {
-            return CloudEventBuilder.v1()
-                    .withId(cloudEventID)
-                    .withType(cloudEventType)
-                    .withSource(cloudEventSource)
-                    .withExtension("correlationId", correlationId)
-                    .withExtension("causationId", causationId)
-                    .withData("application/json", objectMapper.writeValueAsBytes(data))
-                    .build();
+            cloudEventData = new BytesCloudEventData(objectMapper.writeValueAsBytes(data));
         } catch (JsonProcessingException e) {
             return null;
         }
+        return CloudEventBuilder.v1()
+                .withId(cloudEventID)
+                .withType(cloudEventType)
+                .withSource(cloudEventSource)
+                .withExtension("correlationId", correlationId)
+                .withExtension("causationId", causationId)
+                .withData("application/json", cloudEventData)
+                .build();
     }
 
     protected static DefaultKafkaProducerFactory<String, CloudEvent> producerFactory(Encoding encoding,

@@ -48,10 +48,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>1.15</java.version>
         <spring-boot.version>2.3.3.RELEASE</spring-boot.version>
         <spring-kafka.version>2.5.5.RELEASE</spring-kafka.version>
-        <cloudevents-kafka.version>2.0.0-milestone3</cloudevents-kafka.version>
+        <cloudevents-kafka.version>2.0.0-milestone4</cloudevents-kafka.version>
     </properties>
 
     <dependencies>
