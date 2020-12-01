@@ -84,8 +84,8 @@ public class StructuredCloudEventsTest extends CloudEventsTest {
         assertThat(cloudEvent.getId()).isEqualTo(cloudEventID);
         assertThat(cloudEvent.getType()).isEqualTo(cloudEventType);
         assertThat(cloudEvent.getSource()).isEqualTo(cloudEventSource);
-        assertThat(cloudEvent.getExtension("correlationId")).isEqualTo(correlationId);
-        assertThat(cloudEvent.getExtension("causationId")).isEqualTo(causationId);
+        assertThat(cloudEvent.getExtension("correlationid")).isEqualTo(correlationId);
+        assertThat(cloudEvent.getExtension("causationid")).isEqualTo(causationId);
 
         //Test message converter for structured content type
         Message<?> message = messageConverter.toMessage(consumerRecord, ack, mockConsumer, Person.class);

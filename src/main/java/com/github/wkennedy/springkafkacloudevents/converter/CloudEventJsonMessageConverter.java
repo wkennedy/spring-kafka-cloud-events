@@ -43,11 +43,14 @@ public class CloudEventJsonMessageConverter extends JsonMessageConverter {
             javaType = TypeFactory.defaultInstance().constructType(type);
         }
 
-        try {
-            return getObjectMapper().readValue(cloudEvent.getData(), javaType);
+        if(cloudEvent.getData() != null) {
+            try {
+                return getObjectMapper().readValue(cloudEvent.getData().toBytes(), javaType);
+            } catch (IOException e) {
+                throw new ConversionException("Failed to convert from JSON", e);
+            }
         }
-        catch (IOException e) {
-            throw new ConversionException("Failed to convert from JSON", e);
-        }
+
+        return null;
     }
 }

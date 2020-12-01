@@ -1,9 +1,11 @@
 package com.github.wkennedy.springkafkacloudevents.factory;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.cloudevents.core.format.EventFormat;
 import io.cloudevents.core.message.Encoding;
 import io.cloudevents.core.provider.EventFormatProvider;
 import io.cloudevents.jackson.JsonFormat;
+import io.cloudevents.jackson.PojoCloudEventDataMapper;
 import io.cloudevents.kafka.CloudEventDeserializer;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
@@ -11,8 +13,8 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.cloudevents.kafka.CloudEventSerializer.ENCODING_CONFIG;
-import static io.cloudevents.kafka.CloudEventSerializer.EVENT_FORMAT_CONFIG;
+import static io.cloudevents.kafka.CloudEventDeserializer.MAPPER_CONFIG;
+
 
 public class CloudEventKafkaConsumerFactory {
 
@@ -34,9 +36,6 @@ public class CloudEventKafkaConsumerFactory {
             }
         }
         Map<String, Object> ceDeserializerConfigs = new HashMap<>();
-        ceDeserializerConfigs.put(ENCODING_CONFIG, encoding);
-        ceDeserializerConfigs.put(EVENT_FORMAT_CONFIG, eventFormat);
-
         CloudEventDeserializer cloudEventDeserializer = new CloudEventDeserializer();
         cloudEventDeserializer.configure(ceDeserializerConfigs, false); //isKey always false
         return new DefaultKafkaConsumerFactory<>(configs,
