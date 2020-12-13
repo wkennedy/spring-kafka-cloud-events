@@ -49,9 +49,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.15</java.version>
-        <spring-boot.version>2.3.3.RELEASE</spring-boot.version>
-        <spring-kafka.version>2.5.5.RELEASE</spring-kafka.version>
-        <cloudevents-kafka.version>2.0.0.RC1</cloudevents-kafka.version>
+        <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
+        <spring-kafka.version>2.5.10.RELEASE</spring-kafka.version>
+        <cloudevents-kafka.version>2.0.0.RC2</cloudevents-kafka.version>
     </properties>
 
     <dependencies>
